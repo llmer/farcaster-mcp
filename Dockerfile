@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl && curl -LsSf https://astral.sh/uv/install.sh | sh
 
+ENV PATH="/root/.local/bin:${PATH}"
+
 ENV MNEMONIC=""
 
 COPY . .
