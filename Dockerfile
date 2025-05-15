@@ -2,8 +2,7 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y curl && \
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN apt-get update && apt-get install -y curl && curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ENV MNEMONIC=""
 
