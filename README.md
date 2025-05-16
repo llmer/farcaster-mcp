@@ -74,22 +74,24 @@ docker run -p 8080:8080 -e MNEMOMIC="<your-farcaster-account-mnemonic-passphrase
 
 ## Security Notes
 
-- Never expose your API keys in the source code
+- Never expose your Farcaster account's Mnenomic passphrase in the source code
 - Use environment variables for sensitive configuration
 
 ## Usage
 
 Once the server is running, configure the [Cursor](https://www.cursor.com/downloads) desktop to
 connect to the server with:
+
 ```json
 {
-"mcpServers": {
-"Farcaster-mcp": {
-"url": "http://127.0.0.1:8080/sse"
-}
-}
+    "mcpServers": {
+        "Farcaster-mcp": {
+            "url": "http://127.0.0.1:8080/sse"
+        }
+    }
 }
 ```
+
 Since the MCP server is using the Server-Sent Events (SSE) [transport](https://modelcontextprotocol.io/docs/concepts/transports#built-in-transport-types) instead of the Standard Input/Output (stdio) transport, which Claude desktop only supports, the server won't work with it except through an [MCP proxy](https://github.com/sparfenyuk/mcp-proxy).
 
 ### Available Tools
