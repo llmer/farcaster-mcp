@@ -74,7 +74,7 @@ docker run -p 8080:8080 -e MNEMOMIC="<your-farcaster-account-mnemonic-passphrase
 
 ## Security Notes
 
-- Never expose your Farcaster account's Mnenomic passphrase in the source code
+- Never expose your Farcaster account's mnenomic passphrase in the source code
 - Use environment variables for sensitive configuration
 
 ## Usage
