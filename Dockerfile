@@ -14,4 +14,4 @@ RUN uv venv
 RUN uv pip install -e .
 
 EXPOSE 8080
-CMD ["uv", "run", "farcaster.py"]
+CMD ["uv", "run", "farcaster_mcp.py"]
