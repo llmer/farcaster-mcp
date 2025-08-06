@@ -24,12 +24,12 @@ tags = ["api", "key"]
 
 [allowlist]
 paths = [
-    "**/.gitleaks.toml",
-    "**/go.sum",
-    "**/package-lock.json",
-    "**/yarn.lock",
-    "**/uv.lock",
-    "**/*.md"
+    ".*\\.gitleaks\\.toml",
+    ".*go\\.sum",
+    ".*package-lock\\.json",
+    ".*yarn\\.lock",
+    ".*uv\\.lock",
+    ".*\\.md$"
 ]
 
 # Allow test mnemonics (common test phrases)
