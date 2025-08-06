@@ -150,3 +150,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 - [Warpcast](https://warpcast.com/) for providing the channel related endpoints through their API.
 - [a16z](https://github.com/a16z) for providing the cast and user related endpoints through the `farcaster-py` SDK.
+- [perfect-pie](https://perfectpie.xyz) for getting more pie
