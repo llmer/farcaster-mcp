@@ -3,11 +3,6 @@ title = "Gitleaks Configuration for Farcaster MCP"
 [extend]
 useDefault = true
 
-[[rules]]
-id = "mnemonic-seed-phrase"
-description = "Detect potential mnemonic seed phrases"
-regex = '''(?i)(mnemonic|seed_phrase|seed|recovery_phrase)['"]?\s*[:=]\s*['"]?[a-z\s]{20,}['"]?'''
-tags = ["key", "mnemonic", "seed"]
 
 [[rules]]
 id = "farcaster-fid"
@@ -29,12 +24,12 @@ tags = ["api", "key"]
 
 [allowlist]
 paths = [
-    "**/.gitleaks.toml",
-    "**/go.sum",
-    "**/package-lock.json",
-    "**/yarn.lock",
-    "**/uv.lock",
-    "**/*.md"
+    ".*\\.gitleaks\\.toml",
+    ".*go\\.sum",
+    ".*package-lock\\.json",
+    ".*yarn\\.lock",
+    ".*uv\\.lock",
+    ".*\\.md$"
 ]
 
 # Allow test mnemonics (common test phrases)
@@ -43,7 +38,14 @@ regexes = [
     '''abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about'''
 ]
 
-# Exclude common false positives
-[[rules.allowlist]]
-regex = '''MNEMONIC['"]?\s*[:=]\s*['"]?['"]?'''
-description = "Allow empty MNEMONIC environment variable declarations"
+# Rule-specific allowlists
+[[rules]]
+id = "mnemonic-seed-phrase-fixed"
+description = "Detect potential mnemonic seed phrases with proper allowlist"
+regex = '''(?i)(mnemonic|seed_phrase|seed|recovery_phrase)['"]?\s*[:=]\s*['"]?[a-z\s]{20,}['"]?'''
+tags = ["key", "mnemonic", "seed"]
+[rules.allowlist]
+regexes = [
+    '''MNEMONIC['"]?\s*[:=]\s*['"]?['"]?''',
+    '''test test test'''
+]
