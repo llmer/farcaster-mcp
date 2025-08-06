@@ -167,6 +167,7 @@ jobs:
       if: always()
       with:
         sarif_file: 'trivy-dockerfile.sarif'
+        category: 'trivy-dockerfile'
 
     - name: Build Docker image for scanning
       run: docker build -t farcaster-mcp:scan .
@@ -184,6 +185,7 @@ jobs:
       if: always()
       with:
         sarif_file: 'trivy-image.sarif'
+        category: 'trivy-image'
 
   license-check:
     name: License Compliance Check
@@ -203,7 +205,7 @@ jobs:
 
     - name: Check licenses
       run: |
-        uv pip install pip-licenses
+        uv pip install --system pip-licenses
         uv run pip-licenses --format=csv --output-file=licenses.csv
         uv run pip-licenses --fail-on="GPL;LGPL;AGPL;MPL" || echo "::warning::Found copyleft licenses"
         
