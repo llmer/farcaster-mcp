@@ -49,9 +49,15 @@ cd farcaster-mcp
 uv venv
 uv pip install -e .
 
-export MNEMONIC="<your-farcaster-account-mnemonic-passphrase>"
+# Copy the example environment file and update with your values
+cp .env.example .env
+# Edit .env and add your Farcaster mnemonic passphrase
 
-# Run the server
+# Run the server (will automatically load .env file)
+uv run farcaster_mcp.py
+
+# Or export the environment variable manually (overrides .env)
+export MNEMONIC="<your-farcaster-account-mnemonic-passphrase>"
 uv run farcaster_mcp.py
 ```
 
@@ -62,20 +68,43 @@ uv run farcaster_mcp.py
 git clone https://github.com/kaiblade/farcaster-mcp.git
 cd farcaster-mcp
 
+# Copy and configure the environment file
+cp .env.example .env
+# Edit .env and add your Farcaster mnemonic passphrase
+
 # Build the Docker image
 docker build -t farcaster-mcp .
 
-# Run the container
-docker run -p 8080:8080 -e MNEMOMIC="<your-farcaster-account-mnemonic-passphrase>" farcaster-mcp
+# Run the container with .env file
+docker run -p 8080:8080 --env-file .env farcaster-mcp
+
+# Or run with environment variable directly
+docker run -p 8080:8080 -e MNEMONIC="<your-farcaster-account-mnemonic-passphrase>" farcaster-mcp
 ```
 ## Environment Variables
 
 - `MNEMONIC`: Required. A Farcaster account's 24-word mnemonic passphrase.
 
+### Setting Up Environment Variables
+
+1. Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit the `.env` file and add your Farcaster mnemonic passphrase:
+   ```
+   MNEMONIC="your actual 24-word mnemonic passphrase here"
+   ```
+
+3. The `.env` file is automatically ignored by git to prevent accidental commits of sensitive data.
+
 ## Security Notes
 
-- Never expose your Farcaster account's mnenomic passphrase in the source code
+- Never expose your Farcaster account's mnemonic passphrase in the source code
 - Use environment variables for sensitive configuration
+- The `.env` file is excluded from version control via `.gitignore`
+- Always use `.env.example` as a template for required environment variables
 
 ## Usage
 

@@ -2,6 +2,10 @@ import os
 import httpx
 from farcaster import Warpcast
 from mcp.server.fastmcp import FastMCP
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 mcp = FastMCP("farcaster_mcp", host="127.0.0.1",port=8080)
 

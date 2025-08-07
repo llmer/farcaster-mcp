@@ -10,5 +10,6 @@ dependencies = [
     "farcaster>=0.7.12",
     "requests>=2.32.4",
     "starlette>=0.47.2",
-    "urllib3>=2.5.0"
+    "urllib3>=2.5.0",
+    "python-dotenv>=1.0.1",
 ]
