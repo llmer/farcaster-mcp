@@ -108,8 +108,41 @@ docker run -p 8080:8080 -e MNEMONIC="<your-farcaster-account-mnemonic-passphrase
 
 ## Usage
 
-Once the server is running, configure the [Cursor](https://www.cursor.com/downloads) desktop to
-connect to the server with:
+### Claude Code Configuration
+
+To use this MCP server with [Claude Code](https://docs.anthropic.com/en/docs/claude-code/mcp):
+
+1. First, start the server (using one of the installation options above)
+2. Then add it to Claude Code:
+   ```bash
+   claude mcp add --transport sse farcaster-mcp http://127.0.0.1:8080/sse
+   ```
+
+### Claude Desktop Configuration
+
+To use this MCP server with [Claude Desktop](https://www.anthropic.com/engineering/desktop-extensions):
+
+1. Open Claude Desktop settings
+2. Navigate to the Developer section
+3. Add the server configuration:
+   ```json
+   {
+       "mcpServers": {
+           "farcaster": {
+               "command": "uv",
+               "args": ["run", "farcaster_mcp.py"],
+               "cwd": "/path/to/farcaster-mcp",
+               "env": {
+                   "MNEMONIC": "your-24-word-mnemonic-passphrase"
+               }
+           }
+       }
+   }
+   ```
+
+### Cursor Configuration
+
+For [Cursor](https://www.cursor.com/downloads), configure the server with:
 
 ```json
 {
@@ -121,7 +154,7 @@ connect to the server with:
 }
 ```
 
-Since the MCP server is using the Server-Sent Events (SSE) [transport](https://modelcontextprotocol.io/docs/concepts/transports#built-in-transport-types) instead of the Standard Input/Output (stdio) transport, which Claude desktop only supports, the server won't work with it except through an [MCP proxy](https://github.com/sparfenyuk/mcp-proxy).
+**Note:** This MCP server supports both SSE and stdio transports. Claude Code and Cursor can connect via SSE endpoint. Claude Desktop uses stdio transport by launching the server directly with `uv run`.
 
 ### Available Tools
 The server exposes several endpoints that can be used to interact with the Farcaster protocol. Below are some of the tools that are exposed:
