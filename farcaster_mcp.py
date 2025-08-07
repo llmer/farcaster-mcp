@@ -1,13 +1,13 @@
 import os
 import httpx
 from farcaster import Warpcast
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-mcp = FastMCP("farcaster_mcp", host="127.0.0.1",port=8080)
+mcp = FastMCP("farcaster_mcp")
 
 mnemonic = os.environ.get("MNEMONIC")
 
@@ -271,4 +271,17 @@ async def make_request(url):
             return None
 
 if __name__ == '__main__':
-    mcp.run(transport='sse')
+    import sys
+    
+    # Check if we should run with SSE transport (for Docker)
+    if '--sse' in sys.argv or os.environ.get('TRANSPORT') == 'sse':
+        # Use FastMCP CLI to run with SSE transport
+        import uvicorn
+        from fastmcp.server.server import FastMCP
+        
+        # Create the SSE app
+        app = mcp.sse_app()
+        uvicorn.run(app, host='0.0.0.0', port=8080)
+    else:
+        # Run with stdio transport (default)
+        mcp.run()

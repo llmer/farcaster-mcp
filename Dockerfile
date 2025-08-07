@@ -7,11 +7,12 @@ RUN apt-get update && apt-get install -y curl && curl -LsSf https://astral.sh/uv
 ENV PATH="/root/.local/bin:${PATH}"
 
 ENV MNEMONIC=""
+ENV TRANSPORT="sse"
 
 COPY . .
 
-RUN uv venv
-RUN uv pip install -e .
+RUN uv venv --clear
+RUN uv pip install --force-reinstall -e .
 
 EXPOSE 8080
 CMD ["uv", "run", "farcaster_mcp.py"]
